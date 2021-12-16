@@ -1,6 +1,7 @@
 package com.nizamisadykhov.messenger.ui.login
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -9,6 +10,9 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import com.nizamisadykhov.messenger.R
+import com.nizamisadykhov.messenger.data.local.AppPreferences
+import com.nizamisadykhov.messenger.ui.main.MainActivity
+import com.nizamisadykhov.messenger.ui.signup.SignUpActivity
 
 class LoginActivity : AppCompatActivity(), LoginView, View.OnClickListener {
 
@@ -17,6 +21,8 @@ class LoginActivity : AppCompatActivity(), LoginView, View.OnClickListener {
     private lateinit var btnLogin: Button
     private lateinit var btnSignUp: Button
     private lateinit var progressBar: ProgressBar
+    private lateinit var presenter: LoginPresenter
+    private lateinit var preferences: AppPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,8 +46,15 @@ class LoginActivity : AppCompatActivity(), LoginView, View.OnClickListener {
             .show()
     }
 
-    override fun onClick(v: View) {
-
+    override fun onClick(view: View) {
+        if (view.id == R.id.btn_login) {
+            presenter.executeLogin(
+                username = etUsername.text.toString(),
+                password = etPassword.text.toString()
+            )
+        } else if (view.id == R.id.btn_sign_up) {
+            navigateToSignUp()
+        }
     }
 
     override fun getContext(): Context {
@@ -65,10 +78,11 @@ class LoginActivity : AppCompatActivity(), LoginView, View.OnClickListener {
     }
 
     override fun navigateToSignUp() {
-
+        startActivity(Intent(this, SignUpActivity::class.java))
     }
 
     override fun navigateToHome() {
-
+        finish()
+        startActivity(Intent(this, MainActivity::class.java))
     }
 }
