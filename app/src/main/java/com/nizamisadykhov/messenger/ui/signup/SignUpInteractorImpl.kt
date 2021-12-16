@@ -1,8 +1,10 @@
-package com.nizamisadykhov.messenger.ui.login
+package com.nizamisadykhov.messenger.ui.signup
 
 import android.annotation.SuppressLint
+import android.text.TextUtils
 import com.nizamisadykhov.messenger.data.local.AppPreferences
 import com.nizamisadykhov.messenger.data.remote.request.LoginRequestObject
+import com.nizamisadykhov.messenger.data.remote.request.UserRequestObject
 import com.nizamisadykhov.messenger.data.vo.UserVO
 import com.nizamisadykhov.messenger.service.AUTHORIZATION
 import com.nizamisadykhov.messenger.service.MessengerApiService
@@ -10,8 +12,7 @@ import com.nizamisadykhov.messenger.ui.auth.AuthInteractor
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class LoginInteractorImpl : LoginInteractor {
-
+class SignUpInteractorImpl : SignUpInteractor {
     override lateinit var userDetails: UserVO
     override lateinit var accessToken: String
     override lateinit var submittedUsername: String
@@ -20,30 +21,28 @@ class LoginInteractorImpl : LoginInteractor {
     private val service: MessengerApiService = MessengerApiService.getInstance()
 
     @SuppressLint("CheckResult")
-    override fun login(
+    override fun signUp(
         username: String,
+        phoneNumber: String,
         password: String,
-        listener: AuthInteractor.OnAuthFinishedListener
+        listener: SignUpInteractor.OnSignUpFinishedListener
     ) {
+        submittedUsername = username
+        submittedPassword = password
+        val userRequestObject = UserRequestObject(username, password, phoneNumber)
         when {
-            username.isBlank() -> listener.onUsernameError()
-            password.isBlank() -> listener.onPasswordError()
+            TextUtils.isEmpty(username) -> listener.onUsernameError()
+            TextUtils.isEmpty(phoneNumber) -> listener.onPhoneNumberError()
+            TextUtils.isEmpty(password) -> listener.onPasswordError()
             else -> {
-                submittedUsername = username
-                submittedPassword = password
-                val requestObject = LoginRequestObject(username, password)
-                service.login(requestObject)
-                    .subscribeOn(Schedulers.io()) // Подписка Observable на поток Scheduler
-                    .observeOn(AndroidSchedulers.mainThread()) // Настройка наблюдения должна быть сделана в главном потоке
+                service.createUser(userRequestObject)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({ res ->
-                        if (res.code() != 403) {
-                            accessToken = res.headers()[AUTHORIZATION] as String
-                            listener.onAuthSuccess()
-                        } else {
-                            listener.onAuthError()
-                        }
+                        userDetails = res
+                        listener.onSuccess()
                     }, { error ->
-                        listener.onAuthError()
+                        listener.onError()
                         error.printStackTrace()
                     })
             }
@@ -51,18 +50,16 @@ class LoginInteractorImpl : LoginInteractor {
     }
 
     @SuppressLint("CheckResult")
-    override fun retrieveDetails(
-        preferences: AppPreferences,
-        listener: LoginInteractor.OnDetailsRetrievalFinishedListener
-    ) {
-        service.echoDetails(preferences.accessToken as String)
+    override fun getAuthorization(listener: AuthInteractor.OnAuthFinishedListener) {
+        val userRequestObject = LoginRequestObject(submittedUsername, submittedPassword)
+        service.login(userRequestObject)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ res ->
-                userDetails = res
-                listener.onDetailsRetrievalSuccess()
+                accessToken = res.headers()[AUTHORIZATION] as String
+                listener.onAuthSuccess()
             }, { error ->
-                listener.onDetailsRetrievalError()
+                listener.onAuthError()
                 error.printStackTrace()
             })
     }
@@ -74,5 +71,4 @@ class LoginInteractorImpl : LoginInteractor {
     override fun persistUserDetails(preferences: AppPreferences) {
         preferences.storeUserDetails(userDetails)
     }
-
 }

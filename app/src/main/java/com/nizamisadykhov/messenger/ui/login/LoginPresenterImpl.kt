@@ -5,7 +5,7 @@ import com.nizamisadykhov.messenger.ui.auth.AuthInteractor
 
 class LoginPresenterImpl(private val view: LoginView) :
     LoginPresenter,
-    AuthInteractor.onAuthFinishedListener,
+    AuthInteractor.OnAuthFinishedListener,
     LoginInteractor.OnDetailsRetrievalFinishedListener {
 
         private val interactor: LoginInteractor = LoginInteractorImpl()

@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
 const val AUTHORIZATION = "Authorization"
-private const val AWS_URL = "TODO"
+private const val AWS_URL = "http://messengerapi-env-1.eba-qipnct7i.us-east-2.elasticbeanstalk.com"
 
 interface MessengerApiService {
     @POST("login")
