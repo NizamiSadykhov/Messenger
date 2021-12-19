@@ -9,7 +9,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.nizamisadykhov.messenger.R
 import com.nizamisadykhov.messenger.data.vo.UserVO
-import com.nizamisadykhov.messenger.ui.main.conversation.ConversationsAdapter
+import com.nizamisadykhov.messenger.ui.chat.ChatActivity
+import com.nizamisadykhov.messenger.ui.chat.ChatView
 
 class ContactsAdapter(
     private val context: Context,
