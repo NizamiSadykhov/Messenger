@@ -17,7 +17,7 @@ class ConversationFragment : Fragment(), View.OnClickListener {
     private lateinit var rvConversation: RecyclerView
     private lateinit var fabContacts: FloatingActionButton
 
-    var conversations: List<ConversationVO> = listOf()
+    var conversations: ArrayList<ConversationVO> = ArrayList()
     lateinit var conversationsAdapter: ConversationsAdapter
 
     override fun onCreateView(

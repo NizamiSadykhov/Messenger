@@ -14,9 +14,9 @@ class MainPresenterImpl(val view: MainView) : MainPresenter,
         if (conversationListVO.conversations.isNotEmpty()) {
             val conversationFragment = view.getConversationsFragment()
             val conversations = conversationFragment.conversations
-            val adapter = conversations.converastionAdapter
+            val adapter = conversationFragment.conversationsAdapter
             conversations.clear()
-            adapter.notifyItemInsert(conversations.size - 1)
+            adapter.notifyItemInserted(conversations.size - 1)
         } else {
             view.showNoConversations()
         }
@@ -30,13 +30,13 @@ class MainPresenterImpl(val view: MainView) : MainPresenter,
     override fun onContactsLoadSuccess(userListVO: UserListVO) {
         val contactsFragment = view.getContactsFragment()
         val contacts = contactsFragment.contacts
-        val adapter = contactsFragment.adapter
+        val adapter = contactsFragment.contactsAdapter
         contacts.clear()
-        adapter.notifyItemInsert(contacts.size - 1)
+        adapter.notifyItemInserted(contacts.size - 1)
 
         userListVO.users.forEach{contact ->
             contacts.add(contact)
-            contactsFragment.contactsAdapter.notifyItemInsert(contacts.size - 1)
+            contactsFragment.contactsAdapter.notifyItemInserted(contacts.size - 1)
         }
     }
 

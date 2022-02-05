@@ -5,7 +5,7 @@ import com.stfalcon.chatkit.commons.models.IUser
 data class Author(
     val id: Long,
     val username: String,
-): IUser {
+) : IUser {
 
     override fun getAvatar(): String = ""
 

@@ -7,22 +7,6 @@ import com.nizamisadykhov.messenger.data.vo.UserVO
 class AppPreferences private constructor() {
     private lateinit var preferences: SharedPreferences
 
-    companion object {
-        private const val PREFERENCE_FILE_NAME = "APP_PREFERENCES"
-        private const val ACCESS_TOKEN = "ACCESS_TOKEN"
-        private const val ID = "ID"
-        private const val USERNAME = "USERNAME"
-        private const val PHONE_NUMBER = "PHONE_NUMBER"
-        private const val STATUS = "STATUS"
-        private const val CREATED_AT = "CREATED_AT"
-
-        fun create(context: Context): AppPreferences {
-            val appPreferences = AppPreferences()
-            appPreferences.preferences = context.getSharedPreferences(PREFERENCE_FILE_NAME, 0)
-            return appPreferences
-        }
-    }
-
     val accessToken: String? get() = preferences.getString(ACCESS_TOKEN, null)
 
     fun storeAccessToken(accessToken: String) {
@@ -53,6 +37,22 @@ class AppPreferences private constructor() {
         with(preferences.edit()) {
             clear()
             apply()
+        }
+    }
+
+    companion object {
+        private const val PREFERENCE_FILE_NAME = "APP_PREFERENCES"
+        private const val ACCESS_TOKEN = "ACCESS_TOKEN"
+        private const val ID = "ID"
+        private const val USERNAME = "USERNAME"
+        private const val PHONE_NUMBER = "PHONE_NUMBER"
+        private const val STATUS = "STATUS"
+        private const val CREATED_AT = "CREATED_AT"
+
+        fun create(context: Context): AppPreferences {
+            val appPreferences = AppPreferences()
+            appPreferences.preferences = context.getSharedPreferences(PREFERENCE_FILE_NAME, 0)
+            return appPreferences
         }
     }
 }

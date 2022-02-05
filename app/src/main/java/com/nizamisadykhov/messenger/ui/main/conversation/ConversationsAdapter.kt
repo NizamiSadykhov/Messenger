@@ -16,15 +16,15 @@ import com.nizamisadykhov.messenger.ui.chat.ChatView
 class ConversationsAdapter(
     private val context: Context,
     private val dataSet: List<ConversationVO>
-) : RecyclerView.Adapter<ConversationsAdapter.ViewHolder>(), ChatView.ChatAdapter {
+) : RecyclerView.Adapter<ConversationsAdapter.ConversationViewHolder>(), ChatView.ChatAdapter {
 
     val preferences: AppPreferences = AppPreferences.create(context)
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holderConversation: ConversationViewHolder, position: Int) {
         val item = dataSet[position]
-        holder.bind(item)
+        holderConversation.bind(item)
 
-        holder.view.setOnClickListener {
+        holderConversation.view.setOnClickListener {
             val message = item.messages[0]
             val recipientId: Long = if (message.senderId == preferences.userDetails.id) {
                 message.recipientId
@@ -35,11 +35,11 @@ class ConversationsAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ConversationViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.vh_conversation, null, false)
 
-        return ViewHolder(view)
+        return ConversationViewHolder(view)
     }
 
 
@@ -55,7 +55,7 @@ class ConversationsAdapter(
         context.startActivity(intent)
     }
 
-    class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+    class ConversationViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
         private val tvUsername: TextView = view.findViewById(R.id.tv_username)
         private val tvPreview: TextView = view.findViewById(R.id.tv_preview)

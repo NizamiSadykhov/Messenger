@@ -2,6 +2,7 @@ package com.nizamisadykhov.messenger.service
 
 import com.nizamisadykhov.messenger.data.remote.request.LoginRequestObject
 import com.nizamisadykhov.messenger.data.remote.request.MessageRequestObject
+import com.nizamisadykhov.messenger.data.remote.request.StatusUpdateRequestObject
 import com.nizamisadykhov.messenger.data.remote.request.UserRequestObject
 import com.nizamisadykhov.messenger.data.vo.*
 import io.reactivex.Observable
@@ -25,6 +26,12 @@ interface MessengerApiService {
 
     @GET("users")
     fun listUsers(@Header(AUTHORIZATION) authorization: String): Observable<UserListVO>
+
+    @PUT("users")
+    fun updateUserStatus(
+        @Body request: StatusUpdateRequestObject,
+        @Header("Authorization") authorization: String
+    ): Observable<UserVO>
 
     @GET("users/{userId}")
     fun showUser(

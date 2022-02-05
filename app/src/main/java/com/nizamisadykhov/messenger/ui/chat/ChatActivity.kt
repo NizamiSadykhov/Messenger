@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.nizamisadykhov.messenger.R
 import com.nizamisadykhov.messenger.data.local.AppPreferences
 import com.nizamisadykhov.messenger.utils.message.Message
+import com.nizamisadykhov.messenger.utils.showLongToast
 import com.stfalcon.chatkit.messages.MessageInput
 import com.stfalcon.chatkit.messages.MessagesList
 import com.stfalcon.chatkit.messages.MessagesListAdapter
@@ -57,19 +58,13 @@ class ChatActivity : AppCompatActivity(), ChatView, MessageInput.InputListener {
     }
 
     override fun showConversationLoadError() {
-        Toast.makeText(
-            this,
-            "Unable to load thread. Please try again later.",
-            Toast.LENGTH_LONG
-        ).show()
+        val text = getString(R.string.conversation_load_error)
+        showLongToast(text)
     }
 
     override fun showMessageSendError() {
-        Toast.makeText(
-            this,
-            "Unable to send messages. Please try again later.",
-            Toast.LENGTH_LONG
-        ).show()
+        val text = getString(R.string.message_send_error)
+        showLongToast(text)
     }
 
     override fun getContext(): Context {

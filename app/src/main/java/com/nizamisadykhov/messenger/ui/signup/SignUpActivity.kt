@@ -3,7 +3,6 @@ package com.nizamisadykhov.messenger.ui.signup
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -12,8 +11,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.nizamisadykhov.messenger.R
 import com.nizamisadykhov.messenger.data.local.AppPreferences
-import com.nizamisadykhov.messenger.ui.base.BaseView
 import com.nizamisadykhov.messenger.ui.main.MainActivity
+import com.nizamisadykhov.messenger.utils.showLongToast
 
 class SignUpActivity : AppCompatActivity(), SignUpView, View.OnClickListener {
 
@@ -66,31 +65,25 @@ class SignUpActivity : AppCompatActivity(), SignUpView, View.OnClickListener {
     }
 
     override fun setUsernameError() {
-        etUsername.error = "Username field cannot be empty"
+        etUsername.error = getString(R.string.username_error)
     }
 
     override fun setPhoneNumberError() {
-        etPhoneNumber.error = "Phone number field cannot be empty"
+        etPhoneNumber.error = getString(R.string.phone_number_error)
     }
 
     override fun setPasswordError() {
-        etPassword.error = "Password field cannot be empty"
+        etPassword.error = getString(R.string.password_error)
     }
 
     override fun showAuthError() {
-        Toast.makeText(
-            this,
-            "An authorization error occurred. Please try again letter",
-            Toast.LENGTH_LONG
-        ).show()
+        val text = getString(R.string.auth_error_sign_up)
+        showLongToast(text)
     }
 
     override fun showSignUpError() {
-        Toast.makeText(
-            this,
-            "An unexpected error occurred.  Please try again letter",
-            Toast.LENGTH_LONG
-        ).show()
+        val text = getString(R.string.sign_up_error)
+        showLongToast(text)
     }
 
     override fun getContext(): Context {

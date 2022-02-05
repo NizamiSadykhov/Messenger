@@ -8,11 +8,11 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
-import android.widget.Toast
 import com.nizamisadykhov.messenger.R
 import com.nizamisadykhov.messenger.data.local.AppPreferences
 import com.nizamisadykhov.messenger.ui.main.MainActivity
 import com.nizamisadykhov.messenger.ui.signup.SignUpActivity
+import com.nizamisadykhov.messenger.utils.showLongToast
 
 class LoginActivity : AppCompatActivity(), LoginView, View.OnClickListener {
 
@@ -27,7 +27,7 @@ class LoginActivity : AppCompatActivity(), LoginView, View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-
+        presenter = LoginPresenterImpl(this)
         bindViews()
     }
 
@@ -42,8 +42,8 @@ class LoginActivity : AppCompatActivity(), LoginView, View.OnClickListener {
     }
 
     override fun showAuthError() {
-        Toast.makeText(this, "Invalid username and password combination.", Toast.LENGTH_LONG)
-            .show()
+        val text = getString(R.string.auth_error_login)
+        showLongToast(text)
     }
 
     override fun onClick(view: View) {
@@ -70,11 +70,11 @@ class LoginActivity : AppCompatActivity(), LoginView, View.OnClickListener {
     }
 
     override fun setUsernameError() {
-        etUsername.error = "Username field cannot be empty"
+        etUsername.error = getString(R.string.username_error)
     }
 
     override fun setPasswordError() {
-        etPassword.error = "Password field cannot be empty"
+        etPassword.error = getString(R.string.password_error)
     }
 
     override fun navigateToSignUp() {

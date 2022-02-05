@@ -40,6 +40,7 @@
         android:id="@+id/btn_sign_up"
         android:layout_marginTop="@dimen/default_margin"
         android:background="@android:color/transparent"
+        android:textColor="@color/black"
         android:text="@string/sign_up_solicitation"/>
 
     <ProgressBar

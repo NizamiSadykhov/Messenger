@@ -45,4 +45,5 @@ dependencies {
 
     //implementation 'com.github.stfalcon-studio:chatkit:0.4.1'
     implementation 'com.github.stfalcon:chatkit:0.3.3'
+    implementation 'androidx.preference:preference:1.1.1'
 }

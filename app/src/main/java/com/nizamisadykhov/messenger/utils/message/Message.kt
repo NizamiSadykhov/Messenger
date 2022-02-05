@@ -8,7 +8,7 @@ data class Message(
     private val authorId: Long,
     private val body: String,
     private val createdAt: Date
-): IMessage {
+) : IMessage {
 
     override fun getId(): String {
         return authorId.toString()

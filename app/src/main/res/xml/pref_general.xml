@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.nizamisadykhov.messenger.service.ProfileStatusPreference
+        android:key="profile_status"
+        android:singleLine="true"
+        android:inputType="text"
+        android:maxLines="1"
+        android:selectAllOnFocus="true"
+        android:title="Profile status"
+        android:defaultValue="Available"
+        android:summary="Set profile status (visible to contacts)."/>
+
+</PreferenceScreen>

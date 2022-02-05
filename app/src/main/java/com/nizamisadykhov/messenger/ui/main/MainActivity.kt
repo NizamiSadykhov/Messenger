@@ -8,16 +8,12 @@ import android.view.*
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.nizamisadykhov.messenger.R
-import com.nizamisadykhov.messenger.data.vo.ConversationVO
 import com.nizamisadykhov.messenger.ui.login.LoginActivity
 import com.nizamisadykhov.messenger.ui.main.contacts.ContactsFragment
 import com.nizamisadykhov.messenger.ui.main.conversation.ConversationFragment
+import com.nizamisadykhov.messenger.ui.settings.SettingsActivity
+import com.nizamisadykhov.messenger.utils.showLongToast
 
 class MainActivity : AppCompatActivity(), MainView {
     private lateinit var llContainer: LinearLayout
@@ -46,13 +42,13 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     override fun showConversationLoadError() {
-        Toast.makeText(this, "Unable to load conversations. Try again later.", Toast.LENGTH_LONG)
-            .show()
+        val text = getString(R.string.conversations_load_error)
+        showLongToast(text)
     }
 
     override fun showContactsLoadError() {
-        Toast.makeText(this, "Unable to load contacts. Try again later.", Toast.LENGTH_LONG)
-            .show()
+        val text = getString(R.string.contacts_load_error)
+        showLongToast(text)
     }
 
     override fun showConversationsScreen() {
@@ -60,7 +56,7 @@ class MainActivity : AppCompatActivity(), MainView {
         fragmentTransaction.replace(R.id.ll_container, conversationFragment)
 
         presenter.loadConversation()
-        supportActionBar?.title = "Messenger"
+        supportActionBar?.title = getString(R.string.title_messenger)
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
     }
 
@@ -69,13 +65,13 @@ class MainActivity : AppCompatActivity(), MainView {
         fragmentTransaction.replace(R.id.ll_container, contactsFragment)
 
         presenter.loadContacts()
-        supportActionBar?.title = "Contacts"
+        supportActionBar?.title = getString(R.string.title_contacts)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun showNoConversations() {
-        Toast.makeText(this, "You have no active conversations.", Toast.LENGTH_LONG)
-            .show()
+        val text = getString(R.string.no_conversations)
+        showLongToast(text)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -105,6 +101,6 @@ class MainActivity : AppCompatActivity(), MainView {
     }
 
     override fun navigateToSetting() {
-        startActivity(Intent(this, SettingActivity::class.java))
+        startActivity(Intent(this, SettingsActivity::class.java))
     }
 }

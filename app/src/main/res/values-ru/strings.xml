@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Messenger</string>
+    <string name="username">Имя пользователя</string>
+    <string name="password">Пароль</string>
+    <string name="login">Авторизоваться</string>
+    <string name="sign_up_solicitation">У вас нет аккаунта? Зарегистрируйтесь!</string>
+    <string name="sign_up">Зарегистрироваться</string>
+    <string name="phone_number">Телефонный номер</string>
+    <string name="action_settings">Настройки</string>
+    <string name="hint_enter_a_message">Введите сообщение…</string>
+    <string name="title_activity_settings">Настройки</string>
+    <string name="pref_header_account">Профиль</string>
+    <string name="action_logout">Выйти</string>
+    <string name="conversation_load_error">Не удалось загрузить ветку. Пожалуйста, повторите попытку позже.</string>
+    <string name="message_send_error">Невозможно отправить сообщения. Пожалуйста, повторите попытку позже.</string>
+    <string name="auth_error_login">Неверная комбинация имени пользователя и пароля</string>
+    <string name="auth_error_sign_up">Произошла ошибка авторизации. Пожалуйста, повторите попытку позже</string>
+    <string name="sign_up_error">Произошла непредвиденная ошибка. Пожалуйста, повторите попытку позже</string>
+    <string name="phone_number_error">Поле номера телефона не может быть пустым</string>
+    <string name="username_error">Поле имени пользователя не может быть пустым</string>
+    <string name="password_error">Поле пароля не может быть пустым</string>
+    <string name="title_messenger">Messenger</string>
+    <string name="title_contacts">Контакты</string>
+    <string name="conversations_load_error">Не удалось загрузить беседы. Попробуйте позже.</string>
+    <string name="contacts_load_error">Не удалось загрузить контакты. Попробуйте позже.</string>
+    <string name="no_conversations">У вас нет активных чатов.</string>
+</resources>

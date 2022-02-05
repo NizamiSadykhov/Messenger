@@ -15,17 +15,17 @@ import com.nizamisadykhov.messenger.ui.chat.ChatView
 class ContactsAdapter(
     private val context: Context,
     private val dataSet: List<UserVO>
-) : RecyclerView.Adapter<ContactsAdapter.ViewHolder>(), ChatView.ChatAdapter {
+) : RecyclerView.Adapter<ContactsAdapter.ContactViewHolder>(), ChatView.ChatAdapter {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactsAdapter.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.vh_contacts, parent, false)
-        return ViewHolder(view)
+        return ContactViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holderContact: ContactViewHolder, position: Int) {
         val item = dataSet[position]
-        holder.bind(item)
-        holder.view.setOnClickListener {
+        holderContact.bind(item)
+        holderContact.view.setOnClickListener {
             navigateToChat(item.username, item.id)
         }
     }
@@ -41,7 +41,7 @@ class ContactsAdapter(
         return dataSet.size
     }
 
-    class ViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+    class ContactViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         private val tvUsername: TextView = view.findViewById(R.id.tv_username)
         private val tvPhone: TextView = view.findViewById(R.id.tv_phone)
         private val tvStatus: TextView = view.findViewById(R.id.tv_status)

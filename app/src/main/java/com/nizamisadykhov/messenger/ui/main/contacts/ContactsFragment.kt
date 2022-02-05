@@ -15,7 +15,7 @@ class ContactsFragment: Fragment() {
     private lateinit var activity: MainActivity
     private lateinit var rvContacts: RecyclerView
 
-    var contacts: List<UserVO> = listOf()
+    var contacts: ArrayList<UserVO> = ArrayList()
     lateinit var contactsAdapter: ContactsAdapter
 
     override fun onCreateView(
